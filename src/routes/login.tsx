@@ -1,7 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { auth } from "../firebase";
 import { FirebaseError } from "firebase/app";
 import {
@@ -13,7 +12,25 @@ import {
   Switcher,
 } from "../components/auth-componenets";
 import GithubButton from "../components/github-btn";
-
+import styled from "styled-components";
+const ResetBtn = styled.button`
+  margin-top: 50px;
+  background-color: black;
+  font-weight: 500;
+  width: 100%;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid white;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  a {
+    decorator: none;
+  }
+`;
 export default function Login() {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
@@ -51,6 +68,10 @@ export default function Login() {
     }
   };
 
+  const onClick = () => {
+    navigate("/reset-password");
+  };
+
   return (
     <Wrapper>
       <Title>Log into 𝕏</Title>
@@ -78,6 +99,7 @@ export default function Login() {
         Don't have an account?{" "}
         <Link to="/create-account">Create one &rarr;</Link>
       </Switcher>
+      <ResetBtn onClick={onClick}>비밀번호를 잊으셨나요?</ResetBtn>
       <GithubButton />
     </Wrapper>
   );
