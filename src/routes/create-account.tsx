@@ -1,18 +1,17 @@
+import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { auth } from "../firebase";
-import { FirebaseError } from "firebase/app";
 import {
+  Error,
   Form,
   Input,
+  Switcher,
   Title,
   Wrapper,
-  Error,
-  Switcher,
 } from "../components/auth-componenets";
 import GithubButton from "../components/github-btn";
+import { auth } from "../firebase";
 
 export default function CreateAccount() {
   const navigate = useNavigate();
