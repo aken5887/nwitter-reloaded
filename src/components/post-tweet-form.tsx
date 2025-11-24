@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { styled } from "styled-components";
+import { auth, db } from "../firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 const Form = styled.form`
   display: flex;
@@ -71,8 +73,23 @@ export default function PostTweetForm() {
     }
   };
 
-  const onSubmit = () => {
-    return false;
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (!user || isLoading || tweet === "" || tweet.length > 180) return;
+    try {
+      setLoading(true);
+      await addDoc(collection(db, "tweets"), {
+        tweet,
+        createdAt: Date.now(),
+        username: user.displayName || "익명",
+        userId: user.uid,
+      });
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
