@@ -90,7 +90,7 @@ export default function PostTweetForm() {
         username: user.displayName || "익명",
         userId: user.uid,
       });
-
+      setTweet("");
       if (file) {
         const locationRef = ref(
           storage,
